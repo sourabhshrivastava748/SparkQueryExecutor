@@ -9,7 +9,7 @@ object QueryExecutor {
         """
           | SELECT pincode
           | FROM shipping_package_address
-          | WHERE uniware_sp_created >= "2023-11-01"
+          | WHERE uniware_sp_created >= "2023-09-01"
           |""".stripMargin
     }
 
