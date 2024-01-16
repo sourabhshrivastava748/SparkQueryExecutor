@@ -23,10 +23,9 @@ object QueryExecutor {
     def getJdbcOptions(query: String): Map[String, String] = {
         Map(
             "driver" -> "com.mysql.cj.jdbc.Driver",
-            "url" -> "jdbc:mysql://db.address.unicommerce.infra:3306",
+            "url" -> "jdbc:mysql://db.address.unicommerce.infra:3306/turbo",
             "user" -> "developer",
             "password" -> "DevelopeR@4#",
-            "dbtable" -> "turbo.shipping_package_address",
             "query" -> query,
             "header" -> "true",
             "inferSchema" -> "true",
