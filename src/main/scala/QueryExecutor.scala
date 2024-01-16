@@ -39,12 +39,14 @@ object QueryExecutor {
         val fetchQuery = getFetchQuery()
         val jdbcOptions = getJdbcOptions(fetchQuery)
         val filterQuery = getFilterQuery()
-
+        // Read into dataframe
         val rawDataframe = sparkSession.read
                 .format("jdbc")
                 .options(jdbcOptions)
                 .load()
+        // Create temp view
         rawDataframe.createOrReplaceTempView("raw_dataframe_view")
+        // Create dataframe from filter query
         val outputDf = sparkSession.sql(filterQuery)
         outputDf.show(false)
     }
