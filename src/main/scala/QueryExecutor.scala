@@ -7,15 +7,15 @@ object QueryExecutor {
 
     def getFetchQuery(): String = {
         """
-          | SELECT pincode
+          | SELECT mobile
           | FROM shipping_package_address
-          | WHERE uniware_sp_created >= "2023-09-01"
+          | WHERE uniware_sp_created >= "2024-01-01"
           |""".stripMargin
     }
 
     def getFilterQuery(): String = {
         """
-          | SELECT count(distinct(pincode))
+          | SELECT count(distinct(mobile))
           | FROM raw_dataframe_view
           |""".stripMargin
     }
@@ -39,11 +39,13 @@ object QueryExecutor {
         val fetchQuery = getFetchQuery()
         val jdbcOptions = getJdbcOptions(fetchQuery)
         val filterQuery = getFilterQuery()
+
         // Read into dataframe
         val rawDataframe = sparkSession.read
                 .format("jdbc")
                 .options(jdbcOptions)
                 .load()
+
         // Create temp view
         rawDataframe.createOrReplaceTempView("raw_dataframe_view")
         // Create dataframe from filter query
